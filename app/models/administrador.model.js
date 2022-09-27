@@ -1,14 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
-    const Administrador = sequelize.define("venta", {
+    const Administrador = sequelize.define("administrador", {
       rut_admin: {
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
         primaryKey: true
       },
       correo_admin: {
         type: Sequelize.STRING
       },
       telefono_Admin: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       }
     });
     return Administrador;
