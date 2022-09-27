@@ -6,11 +6,11 @@ module.exports = app => {
     // buscar administrador (con condición)
     router.get("/", administrador.findAll);
     // buscar administrador con id
-    router.get("/:rut_admin", administrador.findOne);
+    router.get("/:id", administrador.findOne);
     // actualizar administrador
-    router.put("/:rut_admin", administrador.update);
+    router.put("/:id", administrador.update);
     // eliminar administrador con id
-    router.delete("/:rut_admin", administrador.delete);
+    router.delete("/:id", administrador.delete);
     // eliminar todos los administrador
     router.delete("/", administrador.deleteAll);
     // agregar rutas al servidor
