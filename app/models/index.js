@@ -32,8 +32,9 @@ db.usuario.hasMany(db.venta, {
 });
 db.venta.belongsTo(db.usuario, {
   foreignkey: {
-    name: ""
-  }
+    name: "nombre_usuario", type: Sequelize.STRING, allowNull: false
+  },
+  onDelete: "CASCADE", onUpdate: "CASCADE"
 });
 
 db.usuario.hasMany(db.propiedad);
