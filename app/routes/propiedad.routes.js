@@ -6,11 +6,11 @@ module.exports = app => {
     // buscar propiedad (con condición)
     router.get("/", propiedad.findAll);
     // buscar propiedad con id
-    router.get("/:rut_admin", propiedad.findOne);
+    router.get("/:id_propiedad", propiedad.findOne);
     // actualizar propiedad
-    router.put("/:rut_admin", propiedad.update);
+    router.put("/:id_propiedad", propiedad.update);
     // eliminar propiedad con id
-    router.delete("/:rut_admin", propiedad.delete);
+    router.delete("/:id_propiedad", propiedad.delete);
     // eliminar todos las propiedades
     router.delete("/", propiedad.deleteAll);
     // agregar rutas al servidor
