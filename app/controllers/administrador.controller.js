@@ -1,11 +1,11 @@
 // Importar dependencias
 const db = require("../models");
-const Usuario = db.usuario;
+const Admin = db.admin;
 const Op = db.Sequelize.Op;
-// Crear un nuevo clientet
+// Crear un nuevo admin
 exports.create = (req, res) => {
     // Validar consulta
-    if (!req.body.nombre_usuario) {
+    if (!req.body.rut_admin) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -13,10 +13,9 @@ exports.create = (req, res) => {
     }
     // Create a Cliente
     const usuario= {
-        nombre_usuario: req.body.nombre_usuario,
-        fecha_nacimiento: req.body.fecha_nacimiento,
-        correo: req.body.correo,
-        telefono_usuario: req.body.telefono_usuario
+        rut_admin: req.body.rut_admin,
+        correo_admin: req.body.correo_admin,
+        telefono_admin: req.body.telefono_admin
     };
     // Guardar en base de datos
     Usuario.create(usuario)
