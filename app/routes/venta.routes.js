@@ -6,11 +6,11 @@ module.exports = app => {
     // buscar venta (con condición)
     router.get("/", venta.findAll);
     // buscar venta con id
-    router.get("/:id_venta", venta.findOne);
+    router.get("/:id", venta.findOne);
     // actualizar venta
-    router.put("/:id_venta", venta.update);
+    router.put("/:id", venta.update);
     // eliminar venta con id
-    router.delete("/:id_venta", venta.delete);
+    router.delete("/:id", venta.delete);
     // eliminar todos los venta
     router.delete("/", venta.deleteAll);
     // agregar rutas al servidor
