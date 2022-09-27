@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Propiedad = sequelize.define("usuario", {
+    const Propiedad = sequelize.define("propiedad", {
       id_propiedad: {
         type: Sequelize.STRING,
         primaryKey: true
