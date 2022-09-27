@@ -31,7 +31,7 @@ db.usuario.hasMany(db.propiedad);
 db.propiedad.belongsTo(db.usuario);
 
 db.propiedad.belongsTo(db.seguro);
-db.seguro.belongsTo(db.propiedad);
+db.seguro.hasOne(db.propiedad);
 
 db.administrador.hasMany(db.propiedad);
 db.propiedad.belongsTo(db.administrador);
