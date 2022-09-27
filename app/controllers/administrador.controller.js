@@ -1,6 +1,8 @@
 // Importar dependencias
 const db = require("../models");
-const Admin = db.admin;
+const Administrador = db.administrador;
+const Usuario = db.usuario;
+const Propiedad = db.propiedad;
 const Op = db.Sequelize.Op;
 // Crear un nuevo admin
 exports.create = (req, res) => {
@@ -11,25 +13,25 @@ exports.create = (req, res) => {
         });
         return;
     }
-    // Create a Cliente
-    const usuario= {
+    // Create a Admin
+    const administrador= {
         rut_admin: req.body.rut_admin,
         correo_admin: req.body.correo_admin,
         telefono_admin: req.body.telefono_admin
     };
     // Guardar en base de datos
-    Usuario.create(usuario)
+    Admin.create(administrador)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
             message:
-            err.message || "Error al crear un nuevo cliente"
+            err.message || "Error al crear un nuevo admin"
         });
     });
 };
-// Retornar los clientes de la base de datos.
+// Retornar los usuarios de la base de datos.
 exports.findAll = (req, res) => {
     const nombre_usuario = req.query.nombre_usuario;
     var condition = nombre_usuario ? { nombre_usuario: { [Op.like]: `%${nombre_usuario}%` } } : null;
@@ -53,7 +55,7 @@ exports.findOne = (req, res) => {
             res.send(data);
         } else {
             res.status(404).send({
-                message: `No se encontró al cliente.`
+                message: `No se encontró el usuario.`
             });
          }
     })
@@ -72,11 +74,11 @@ exports.update = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Cliente actualizado."
+                message: "Usuario actualizado."
             });
         } else {
             res.send({
-                message: `No se pudo actualizar al cliente`
+                message: `No se pudo actualizar el usuario`
             });
         }
     })
@@ -95,7 +97,7 @@ exports.delete = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Cliente eliminado"
+                message: "Usuario eliminado"
             });
         } else {
             res.send({
@@ -117,6 +119,105 @@ exports.deleteAll = (req, res) => {
     })
     .then(nums => {
         res.send({ message: `${nums} clientes eliminados!` });
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Error al eliminar a todos los clientes."
+        });
+    });     
+};
+// Retornar las propiedades de la base de datos.
+exports.findAll = (req, res) => {
+    const id_propiedad = req.query.id_propiedad;
+    var condition = id_propiedad? { id_propiedad: { [Op.like]: `%${id_propiedad}%` } } : null;
+    Propiedad.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Error en la búsqueda"
+        });
+    });
+};
+
+// Buscar un cliente por su id
+exports.findOne = (req, res) => {
+    const id_propiedad = req.params.id_propiedad;
+    Propiedad.findByPk(id_propiedad)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `No se encontró la propiedad.`
+            });
+         }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error en la búsqueda"
+        });
+    });
+};
+// actualizar una propiedad por su id
+exports.update = (req, res) => {
+    const id_propiedad = req.params.id_propiedad;
+    Propiedad.update(req.body, {
+        where: { id_propiedad: id_propiedad }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: "Usuario actualizado."
+            });
+        } else {
+            res.send({
+                message: `No se pudo actualizar el usuario`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error en actualización"
+        });
+    });
+};
+
+// eliminar una propiedad
+exports.delete = (req, res) => {
+    const id_propiedad = req.params.id_propiedad;
+    Propiedad.destroy({
+        where: { id_propiedad: id_propiedad }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: "Usuario eliminado"
+            });
+        } else {
+            res.send({
+                message: `Propiedad no encontrado`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error al eliminar propiedad"
+        });
+    });
+};
+
+// eliminar a todos los clientes
+exports.deleteAll = (req, res) => {
+    Propiedad.destroy({
+        where: {},
+        truncate: false
+    })
+    .then(nums => {
+        res.send({ message: `${nums} propiedades eliminadas!` });
     })
     .catch(err => {
         res.status(500).send({
