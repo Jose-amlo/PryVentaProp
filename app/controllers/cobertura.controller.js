@@ -1,25 +1,23 @@
 // Importar dependencias
 const db = require("../models");
-const Usuario = db.usuario;
+const Cobertura = db.cobertura;
 const Op = db.Sequelize.Op;
 // Crear un nuevo cliente
 exports.create = (req, res) => {
     // Validar consulta
-    if (!req.body.nombre_usuario) {
+    if (!req.body.tipo_cobertura) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
     // Create a Cliente
-    const usuario= {
-        nombre_usuario: req.body.nombre_usuario,
-        fecha_nacimiento: req.body.fecha_nacimiento,
-        correo: req.body.correo,
-        telefono_usuario: req.body.telefono_usuario
+    const cobertura= {
+        tipo_cobertura: req.body.tipo_cobertura,
+        id_seguro: req.body.id_seguro
     };
     // Guardar en base de datos
-    Usuario.create(usuario)
+    Cobertura.create(cobertura)
     .then(data => {
         res.send(data);
     })
@@ -32,8 +30,8 @@ exports.create = (req, res) => {
 };
 // Retornar los clientes de la base de datos.
 exports.findAll = (req, res) => {
-    const nombre_usuario = req.query.nombre_usuario;
-    var condition = nombre_usuario ? { nombre_usuario: { [Op.like]: `%${nombre_usuario}%` } } : null;
+    const tipo_cobertura = req.query.tipo_cobertura;
+    var condition = tipo_cobertura ? { tipo_cobertura: { [Op.like]: `%${tipo_cobertura}%` } } : null;
     Usuario.findAll({ where: condition })
     .then(data => {
         res.send(data);
@@ -47,8 +45,8 @@ exports.findAll = (req, res) => {
 };
 // Buscar un cliente por su id
 exports.findOne = (req, res) => {
-    const nombre_usuario = req.params.nombre_usuario;
-    Usuario.findByPk(nombre_usuario)
+    const tipo_cobertura = req.params.tipo_cobertura;
+    Usuario.findByPk(tipo_cobertura)
     .then(data => {
         if (data) {
             res.send(data);
@@ -66,9 +64,9 @@ exports.findOne = (req, res) => {
 };
 // actualizar un cliente por su id
 exports.update = (req, res) => {
-    const nombre_usuario = req.params.nombre_usuario;
-    Usuario.update(req.body, {
-        where: { nombre_usuario: nombre_usuario }
+    const tipo_cobertura = req.params.tipo_cobertura;
+    Cobertura.update(req.body, {
+        where: { tipo_cobertura: tipo_cobertura }
     })
     .then(num => {
         if (num == 1) {
@@ -89,9 +87,9 @@ exports.update = (req, res) => {
 };
 // eliminar un cliente
 exports.delete = (req, res) => {
-    const nombre_usuario = req.params.nombre_usuario;
-    Usuario.destroy({
-        where: { nombre_usuario: nombre_usuario }
+    const tipo_cobertura = req.params.tipo_cobertura;
+    Cobertura.destroy({
+        where: { tipo_cobertura: tipo_cobertura }
     })
     .then(num => {
         if (num == 1) {
