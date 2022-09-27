@@ -1,18 +1,18 @@
 module.exports = app => {
-    const usuario = require("../controllers/client.controller.js");
+    const usuario = require("../controllers/usuario.controller.js");
     var router = require("express").Router();
-    // Crear un cliente
+    // Crear un usuario
     router.post("/", usuario.create);
-    // buscar clientes (con condición)
+    // buscar usuario (con condición)
     router.get("/", usuario.findAll);
-    // buscar cliente con id
+    // buscar usuario con id
     router.get("/:nombre_usuario", usuario.findOne);
-    // actualizar cliente
+    // actualizar usuario
     router.put("/:nombre_usuario", usuario.update);
-    // eliminar cliente con id
+    // eliminar usuario con id
     router.delete("/:nombre_usuario", usuario.delete);
-    // eliminar todos los clientes
+    // eliminar todos los usuario
     router.delete("/", usuario.deleteAll);
     // agregar rutas al servidor
-    app.use('/api/usuario', router);
+    app.use('/api/usuario', router);    
  };
