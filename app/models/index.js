@@ -24,8 +24,15 @@ db.propiedad = require("./propiedad.model.js")(sequelize, Sequelize);
 db.seguro = require("./seguro.model.js")(sequelize, Sequelize);
 db.venta = require("./venta.model.js")(sequelize, Sequelize);
 
-db.usuario.hasMany(db.venta);
-db.venta.belongsTo(db.usuario);
+db.usuario.hasMany(db.venta, {
+  foreignkey: {
+    name: "nombre_usuario", type: Sequelize.STRING, allowNull: false
+  },
+  onDelete: "CASCADE", onUpdate: "CASCADE"
+});
+db.venta.belongsTo(db.usuario, {
+  foreignkey: {
+    name: ");
 
 db.usuario.hasMany(db.propiedad);
 db.propiedad.belongsTo(db.usuario);
