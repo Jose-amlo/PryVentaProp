@@ -37,14 +37,11 @@ db.venta.belongsTo(db.usuario, {
 });
 
 db.usuario.hasMany(db.propiedad);
-db.propiedad.belongsTo(db.usuario);
 
-db.propiedad.belongsTo(db.seguro);
 db.seguro.hasOne(db.propiedad);
+db.seguro.hasMany(db.cobertura);
 
 db.administrador.hasMany(db.propiedad);
-db.propiedad.belongsTo(db.administrador);
 
-db.seguro.hasMany(db.cobertura);
-db.cobertura.belongsTo(db.seguro);
+
 module.exports = db;
