@@ -27,6 +27,6 @@ db.venta = require("./venta.model.js")(sequelize, Sequelize);
 db.usuario.hasMany(db.venta);
 db.venta.belongsTo(db.usuario);
 
-db.propiedad.hasMany(db.usuario);
-db.usuario.belongsTo(db.propiedad);
+db.usuario.hasMany(db.propiedad);
+db.propiedad.belongsTo(db.usuario);
 module.exports = db;
