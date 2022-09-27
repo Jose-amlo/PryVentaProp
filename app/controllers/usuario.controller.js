@@ -73,23 +73,23 @@ exports.create = (req, res) => {
         telefono_usuario: req.body.telefono_usuario
     };
     // Guardar en base de datos
-    Usuario.create(usuario)
+    venta.create(venta)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
             message:
-            err.message || "Error al crear un nuevo cliente"
+            err.message || "Error al crear nueva venta"
         });
     });
 };
 
-// actualizar un cliente por su id
+// actualizar una venta por su id
 exports.update = (req, res) => {
-    const nombre_usuario = req.params.nombre_usuario;
-    Usuario.update(req.body, {
-        where: { nombre_usuario: nombre_usuario }
+    const id_venta = req.params.id_venta;
+    Venta.update(req.body, {
+        where: { id_venta: id_venta }
     })
     .then(num => {
         if (num == 1) {
@@ -108,42 +108,42 @@ exports.update = (req, res) => {
         });
     });
 };
-// eliminar un cliente
+// eliminar una venta
 exports.delete = (req, res) => {
-    const nombre_usuario = req.params.nombre_usuario;
-    Usuario.destroy({
-        where: { nombre_usuario: nombre_usuario }
+    const id_venta = req.params.id_venta;
+    Venta.destroy({
+        where: { id_venta: id_venta }
     })
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Cliente eliminado"
+                message: "venta eliminada"
             });
         } else {
             res.send({
-                message: `Cliente no encontrado`
+                message: `Venta no encontrada`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error al eliminar cliente"
+            message: "Error al eliminar venta"
         });
     });
 };
-// eliminar a todos los clientes
+// eliminar todas las ventas
 exports.deleteAll = (req, res) => {
-    Usuario.destroy({
+    Ventas.destroy({
         where: {},
         truncate: false
     })
     .then(nums => {
-        res.send({ message: `${nums} clientes eliminados!` });
+        res.send({ message: `${nums} ventas eliminadas!` });
     })
     .catch(err => {
         res.status(500).send({
             message:
-            err.message || "Error al eliminar a todos los clientes."
+            err.message || "Error al eliminar todas las ventas."
         });
     });     
 };
