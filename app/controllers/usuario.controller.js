@@ -1,9 +1,8 @@
 // Importar dependencias
 const db = require("../models");
 const Usuario = db.usuario;
-const Venta = db.venta;
 const Op = db.Sequelize.Op;
-// Crear un nuevo clientet
+// Crear un nuevo cliente
 exports.create = (req, res) => {
     // Validar consulta
     if (!req.body.nombre_usuario) {
@@ -31,7 +30,40 @@ exports.create = (req, res) => {
         });
     });
 };
-
+// Retornar los clientes de la base de datos.
+exports.findAll = (req, res) => {
+    const nombre_usuario = req.query.nombre_usuario;
+    var condition = nombre_usuario ? { nombre_usuario: { [Op.like]: `%${nombre_usuario}%` } } : null;
+    Usuario.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Error en la búsqueda"
+        });
+    });
+};
+// Buscar un cliente por su id
+exports.findOne = (req, res) => {
+    const nombre_usuario = req.params.nombre_usuario;
+    Usuario.findByPk(nombre_usuario)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `No se encontró al cliente.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error en la búsqueda"
+        });
+    });    
+};
 // actualizar un cliente por su id
 exports.update = (req, res) => {
     const nombre_usuario = req.params.nombre_usuario;
@@ -53,98 +85,45 @@ exports.update = (req, res) => {
         res.status(500).send({
             message: "Error en actualización"
         });
-    });
+    });    
 };
-
-// Crear una nueva venta
-exports.create = (req, res) => {
-    // Validar consulta
-    if (!req.body.id_venta) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
-    }
-    // Create a venta
-    const venta= {
-        id_venta: req.body.id_venta,
-        mes_venta: req.body.mes_venta,
-        monto_venta: req.body.monto_venta,
-        telefono_usuario: req.body.telefono_usuario
-    };
-    // Guardar en base de datos
-    venta.create(venta)
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message:
-            err.message || "Error al crear nueva venta"
-        });
-    });
-};
-
-// actualizar una venta por su id
-exports.update = (req, res) => {
-    const id_venta = req.params.id_venta;
-    Venta.update(req.body, {
-        where: { id_venta: id_venta }
-    })
-    .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Cliente actualizado."
-            });
-        } else {
-            res.send({
-                message: `No se pudo actualizar al cliente`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error en actualización"
-        });
-    });
-};
-// eliminar una venta
+// eliminar un cliente
 exports.delete = (req, res) => {
-    const id_venta = req.params.id_venta;
-    Venta.destroy({
-        where: { id_venta: id_venta }
+    const nombre_usuario = req.params.nombre_usuario;
+    Usuario.destroy({
+        where: { nombre_usuario: nombre_usuario }
     })
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "venta eliminada"
+                message: "Cliente eliminado"
             });
         } else {
             res.send({
-                message: `Venta no encontrada`
+                message: `Cliente no encontrado`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error al eliminar venta"
+            message: "Error al eliminar cliente"
         });
     });
 };
-// eliminar todas las ventas
+// eliminar a todos los clientes
 exports.deleteAll = (req, res) => {
-    Ventas.destroy({
+    Usuario.destroy({
         where: {},
         truncate: false
     })
     .then(nums => {
-        res.send({ message: `${nums} ventas eliminadas!` });
+        res.send({ message: `${nums} clientes eliminados!` });
     })
     .catch(err => {
         res.status(500).send({
             message:
-            err.message || "Error al eliminar todas las ventas."
+            err.message || "Error al eliminar a todos los clientes."
         });
-    });     
+    });
 };
 
