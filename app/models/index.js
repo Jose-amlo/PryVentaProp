@@ -32,7 +32,9 @@ db.usuario.hasMany(db.venta, {
 });
 db.venta.belongsTo(db.usuario, {
   foreignkey: {
-    name: ");
+    name: ""
+  }
+});
 
 db.usuario.hasMany(db.propiedad);
 db.propiedad.belongsTo(db.usuario);
