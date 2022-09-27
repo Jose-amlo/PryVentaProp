@@ -17,5 +17,16 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 // Importa modelos a Sequelize
-db.usuario = require("./client.model.js")(sequelize, Sequelize);
+db.usuario = require("./usuario.model.js")(sequelize, Sequelize);
+db.administrador = require("./administrador.model.js")(sequelize, Sequelize);
+db.cobertura = require("./cobertura.model.js")(sequelize, Sequelize);
+db.propiedad = require("./propiedad.model.js")(sequelize, Sequelize);
+db.seguro = require("./seguro.model.js")(sequelize, Sequelize);
+db.venta = require("./venta.model.js")(sequelize, Sequelize);
+
+db.usuario.hasMany(db.venta);
+db.venta.belongsTo(db.usuario);
+
+db.propiedad.hasMany(db.usuario);
+db.usuario.belongsTo(db.propiedad);
 module.exports = db;
