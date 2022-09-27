@@ -2,7 +2,7 @@
 
 1) Alter table venta drop mes_venta;
 
-2) Alter table 
+2) Alter table usuario drop telefono_usuario;
 
 3) Select usuario.nombre_usuario, usuario.correo, venta.monto_venta from usuario inner join venta on usuario.nombre_usuario = venta.nombre_usuario where venta.monto_venta < 200000;
 
