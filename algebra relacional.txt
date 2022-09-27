@@ -1,0 +1,25 @@
+                                             Consultas SQL
+
+1) Alter table venta drop mes_venta;
+
+2) Alter table 
+
+3) Select usuario.nombre_usuario, usuario.correo, venta.monto_venta from usuario inner join venta on usuario.nombre_usuario = venta.nombre_usuario where venta.monto_venta < 200000;
+
+4) Select administrador.rut_admin, administrador.correo_admin, propiedad.id_propiedad from administrador inner join propiedad on administrador.rut_admin = propiedad.rut_admin where administrador.rut_admin = 1244521844;
+
+5) Update usuario set correo = "algo@bla.cl", telefono_usuario = 965457812 where nombre_usuario = "GoldC"; 
+
+6) Update venta set monto_venta = 450000 where id_venta = 1;
+
+7) Insert  into usuario values ("Jose", "2000/12/31", "jose@bla.cl", 974125411);
+
+8) Insert into administrador values(20145741, "admin@bla.cl", 987542132);
+
+9) Insert into propiedad (id_propiedad,region, comuna, calle, numero, nombre_usuario, id_seguro, rut_admin) values (2, "Santiago", "Las Condes", "Calle.png", 123, "Jose", "1", 987542132); 
+
+10) Delete from venta where monto_venta < 200000;
+
+12) Delete from propiedad where region = "Santiago";
+
+13) Drop table cobertura;
