@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
-require("./app/routes/client.routes")(app);
+require("./app/routes/usuario.routes")(app);
 // ruta simple
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
