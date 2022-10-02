@@ -14,9 +14,11 @@ db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
 require("./app/routes/usuario.routes")(app);
-require("./app/routes/usuario.routes")(app);
-require("./app/routes/usuario.routes")(app);
-require("./app/routes/usuario.routes")(app);
+require("./app/routes/venta.routes")(app);
+require("./app/routes/administrador.routes")(app);
+require("./app/routes/cobertura.routes")(app);
+require("./app/routes/propiedad.routes")(app);
+require("./app/routes/seguro.routes")(app);
 
 // ruta simple
 app.get("/", (req, res) => {
